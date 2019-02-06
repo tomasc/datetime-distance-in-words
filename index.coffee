@@ -3,6 +3,9 @@
 #   tomorrow: { query: ???, label: "TOMORROW" }
 # }
 
+# input is datetime
+# output is string value based on queries and labels provided via options
+
 export default class DatetimeDistanceInWords
   constructor: (datetime, options) ->
     @datetime = datetime
@@ -14,6 +17,10 @@ export default class DatetimeDistanceInWords
 
 
 # extracted from MCA
+
+# • TODO: we need better library than datejs
+#   • not momentjs
+#   • but one that supports timezones
 
 # ---------------------------------------------------------------------
 
