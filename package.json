@@ -1,0 +1,20 @@
+{
+  "name": "datetime-distance-in-words",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Tomáš Celizna <tomas.celizna@gmail.com>",
+  "license": "MIT",
+  "jest": {
+    "preset": "jest-preset-coffeescript",
+    "testEnvironment": "node"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "coffee -c index.coffee"
+  },
+  "devDependencies": {
+    "coffeescript": "^2.3.2",
+    "jest": "^23.6.0",
+    "jest-preset-coffeescript": "^1.0.0"
+  }
+}
