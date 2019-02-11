@@ -20,6 +20,8 @@ describe 'function query', ->
   query = { query: ((dt, _) -> isToday(dt)), label: 'TODAY' }
   it 'single', -> expectValue(NOW, null, [query]).toEqual query.label
 
+# ---------------------------------------------------------------------
+
 describe 'today', ->
   query = { query: 'today', label: 'TODAY' }
   it 'single', -> expectValue(NOW, null, [query]).toEqual query.label
@@ -34,6 +36,8 @@ describe 'yesterday', ->
   query = { query: 'yesterday', label: 'YESTERDAY' }
   it 'single', -> expectValue(YESTERDAY, null, [query]).toEqual query.label
   it 'range', -> expectValue(subDays(NOW, 3), addDays(NOW, 3), [query]).toEqual query.label
+
+# ---------------------------------------------------------------------
 
 describe 'this week', ->
   query = { query: 'this-week', label: 'THIS WEEK' }
@@ -50,6 +54,8 @@ describe 'past week', ->
   it 'single', -> expectValue(subWeeks(NOW, 1), null, [query]).toEqual query.label
   it 'range', -> expectValue(subDays(NOW, 10), subDays(NOW, 7), [query]).toEqual query.label
 
+# ---------------------------------------------------------------------
+
 describe 'this month', ->
   query = { query: 'this-month', label: 'THIS MONTH' }
   it 'single', -> expectValue(NOW, null, [query]).toEqual query.label
@@ -65,6 +71,8 @@ describe 'past month', ->
   it 'single', -> expectValue(subMonths(NOW, 1), null, [query]).toEqual query.label
   it 'range', -> expectValue(subDays(NOW, 60), subDays(NOW, 40), [query]).toEqual query.label
 
+# ---------------------------------------------------------------------
+
 describe 'this year', ->
   query = { query: 'this-year', label: 'THIS YEAR' }
   it 'single', -> expectValue(NOW, null, [query]).toEqual query.label
@@ -79,3 +87,20 @@ describe 'past year', ->
   query = { query: 'past-year', label: 'PAST YEAR' }
   it 'single', -> expectValue(subYears(NOW, 1), null, [query]).toEqual query.label
   it 'range', -> expectValue(subDays(subYears(NOW, 1), 20), subYears(NOW, 1), [query]).toEqual query.label
+
+# ---------------------------------------------------------------------
+
+describe 'now', ->
+  query = { query: 'now', label: 'NOW' }
+  it 'single', -> expectValue(NOW, null, [query]).toEqual query.label
+  it 'range', -> expectValue(subDays(NOW, 3), addDays(NOW, 3), [query]).toEqual query.label
+
+describe 'next', ->
+  query = { query: 'next', label: 'NEXT' }
+  it 'single', -> expectValue(addDays(NOW, 1), null, [query]).toEqual query.label
+  it 'range', -> expectValue(addDays(NOW, 1), addDays(NOW, 3), [query]).toEqual query.label
+
+describe 'past', ->
+  query = { query: 'past', label: 'PAST' }
+  it 'single', -> expectValue(subDays(NOW, 1), null, [query]).toEqual query.label
+  it 'range', -> expectValue(subDays(NOW, 10), subDays(NOW, 1), [query]).toEqual query.label

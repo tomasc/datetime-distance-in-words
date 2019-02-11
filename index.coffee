@@ -1,14 +1,14 @@
 import {
   addDays, subDays,
-  isToday, isTomorrow, isYesterday,
+  isToday, isTomorrow, isYesterday, startOfDay, endOfDay,
   isThisWeek, startOfWeek, endOfWeek,
   isThisMonth, startOfMonth, endOfMonth,
   isThisYear, startOfYear, endOfYear,
-  areRangesOverlapping, isWithinRange
+  areRangesOverlapping, isWithinRange,
+  isFuture, isPast
 } from 'date-fns'
 
 # nearest_weekend
-# now, next, past
 
 export default class DatetimeDistanceInWords
   constructor: (dtstart, dtend, queries) ->
@@ -24,7 +24,7 @@ export default class DatetimeDistanceInWords
 
   processQuery: (query) ->
     switch query
-      when 'today' then @todayQuery()
+      when 'now', 'today' then @todayQuery()
       when 'tomorrow' then @tomorrowQuery()
       when 'yesterday' then @yesterdayQuery()
       when 'this-week' then @thisWeekQuery()
@@ -36,6 +36,8 @@ export default class DatetimeDistanceInWords
       when 'this-year' then @thisYearQuery()
       when 'next-year' then @nextYearQuery()
       when 'past-year' then @pastYearQuery()
+      when 'next' then @nextQuery()
+      when 'past' then @pastQuery()
       else query(@dtstart, @dtend)
 
   todayQuery: ->
@@ -136,3 +138,10 @@ export default class DatetimeDistanceInWords
       startOfPastYear, endOfPastYear,
       @dtstart, @dtend
     )
+
+  nextQuery: ->
+    isFuture(startOfDay(@dtstart))
+
+  pastQuery: ->
+    isPast(endOfDay(@dtstart)) unless @dtend
+    isPast(endOfDay(@dtend))
