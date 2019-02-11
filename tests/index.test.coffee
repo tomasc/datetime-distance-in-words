@@ -1,4 +1,4 @@
-import DatetimeDistanceInWords from '../'
+import DatetimeDistanceInWords from './..'
 
 import {
   isToday,
