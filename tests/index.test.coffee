@@ -5,6 +5,15 @@ import isToday from 'date-fns/is_today'
 import addDays from 'date-fns/add_days'
 import subDays from 'date-fns/sub_days'
 
+import addWeeks from 'date-fns/add_weeks'
+import subWeeks from 'date-fns/sub_weeks'
+
+import addMonths from 'date-fns/add_months'
+import subMonths from 'date-fns/sub_months'
+
+import addYears from 'date-fns/add_years'
+import subYears from 'date-fns/sub_years'
+
 expectValue = (dtstart, dtend, queries) ->
   instance = new DatetimeDistanceInWords(dtstart, dtend, queries)
   expect(instance.value())
@@ -39,12 +48,12 @@ describe 'this week', ->
 
 describe 'next week', ->
   query = { query: 'next-week', label: 'NEXT WEEK' }
-  it 'single', -> expectValue(addDays(NOW, 7), null, [query]).toEqual query.label
-  it 'range', -> expectValue(addDays(NOW, 7), addDays(NOW, 10), [query]).toEqual query.label
+  it 'single', -> expectValue(addWeeks(NOW, 1), null, [query]).toEqual query.label
+  it 'range', -> expectValue(addDays(NOW, 3), addDays(NOW, 10), [query]).toEqual query.label
 
 describe 'past week', ->
   query = { query: 'past-week', label: 'PAST WEEK' }
-  it 'single', -> expectValue(subDays(NOW, 7), null, [query]).toEqual query.label
+  it 'single', -> expectValue(subWeeks(NOW, 1), null, [query]).toEqual query.label
   it 'range', -> expectValue(subDays(NOW, 10), subDays(NOW, 7), [query]).toEqual query.label
 
 describe 'this month', ->
@@ -54,10 +63,25 @@ describe 'this month', ->
 
 describe 'next month', ->
   query = { query: 'next-month', label: 'NEXT MONTH' }
-  it 'single', -> expectValue(addDays(NOW, 40), null, [query]).toEqual query.label
+  it 'single', -> expectValue(addMonths(NOW, 1), null, [query]).toEqual query.label
   it 'range', -> expectValue(addDays(NOW, 40), addDays(NOW, 60), [query]).toEqual query.label
 
 describe 'past month', ->
   query = { query: 'past-month', label: 'PAST MONTH' }
-  it 'single', -> expectValue(subDays(NOW, 40), null, [query]).toEqual query.label
+  it 'single', -> expectValue(subMonths(NOW, 1), null, [query]).toEqual query.label
   it 'range', -> expectValue(subDays(NOW, 60), subDays(NOW, 40), [query]).toEqual query.label
+
+describe 'this year', ->
+  query = { query: 'this-year', label: 'THIS YEAR' }
+  it 'single', -> expectValue(NOW, null, [query]).toEqual query.label
+  it 'range', -> expectValue(subDays(NOW, 30), addDays(NOW, 30), [query]).toEqual query.label
+
+describe 'next year', ->
+  query = { query: 'next-year', label: 'NEXT YEAR' }
+  it 'single', -> expectValue(addYears(NOW, 1), null, [query]).toEqual query.label
+  it 'range', -> expectValue(addYears(NOW, 1), addDays(addYears(NOW, 1), 10), [query]).toEqual query.label
+
+describe 'past year', ->
+  query = { query: 'past-year', label: 'PAST YEAR' }
+  it 'single', -> expectValue(subYears(NOW, 1), null, [query]).toEqual query.label
+  it 'range', -> expectValue(subDays(subYears(NOW, 1), 20), subYears(NOW, 1), [query]).toEqual query.label

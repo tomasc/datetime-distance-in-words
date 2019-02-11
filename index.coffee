@@ -13,14 +13,14 @@ import isThisMonth from 'date-fns/is_this_month'
 import startOfMonth from 'date-fns/start_of_month'
 import endOfMonth from 'date-fns/end_of_month'
 
+import isThisYear from 'date-fns/is_this_year'
+import startOfYear from 'date-fns/start_of_year'
+import endOfYear from 'date-fns/end_of_year'
+
 import areRangesOverlapping from 'date-fns/are_ranges_overlapping'
 import isWithinRange from 'date-fns/is_within_range'
 
 # nearest_weekend
-
-# this_year
-# next_year
-# past_year
 
 export default class DatetimeDistanceInWords
   constructor: (dtstart, dtend, queries) ->
@@ -45,6 +45,9 @@ export default class DatetimeDistanceInWords
       when 'this-month' then @thisMonthQuery()
       when 'next-month' then @nextMonthQuery()
       when 'past-month' then @pastMonthQuery()
+      when 'this-year' then @thisYearQuery()
+      when 'next-year' then @nextYearQuery()
+      when 'past-year' then @pastYearQuery()
       else query(@dtstart, @dtend)
 
   todayQuery: ->
@@ -115,5 +118,33 @@ export default class DatetimeDistanceInWords
     return isWithinRange(@dtstart, startOfPastMonth, endOfPastMonth) unless @dtend
     areRangesOverlapping(
       startOfPastMonth, endOfPastMonth,
+      @dtstart, @dtend
+    )
+
+  thisYearQuery: ->
+    return isThisYear(@dtstart) unless @dtend
+    now = new Date()
+    areRangesOverlapping(
+      startOfYear(now), endOfYear(now),
+      @dtstart, @dtend
+    )
+
+  nextYearQuery: ->
+    now = new Date()
+    startOfNextYear = addDays(endOfYear(now), 1)
+    endOfNextYear = endOfYear(startOfNextYear)
+    return isWithinRange(@dtstart, startOfNextYear, endOfNextYear) unless @dtend
+    areRangesOverlapping(
+      startOfNextYear, endOfNextYear,
+      @dtstart, @dtend
+    )
+
+  pastYearQuery: ->
+    now = new Date()
+    endOfPastYear = subDays(startOfYear(now), 1)
+    startOfPastYear = startOfYear(endOfPastYear)
+    return isWithinRange(@dtstart, startOfPastYear, endOfPastYear) unless @dtend
+    areRangesOverlapping(
+      startOfPastYear, endOfPastYear,
       @dtstart, @dtend
     )
