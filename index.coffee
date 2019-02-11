@@ -38,8 +38,7 @@ export default class DatetimeDistanceInWords
       when 'next' then @nextQuery()
       when 'past' then @pastQuery()
       when 'nearest-weekend' then @nearestWeekendQuery()
-      else
-        query(@dtstart, @dtend) if typeof query is 'function'
+      else query(@dtstart, @dtend) if typeof query is 'function'
 
   todayQuery: ->
     return isToday(@dtstart) unless @dtend
