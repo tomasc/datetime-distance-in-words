@@ -44,31 +44,32 @@ export default class DatetimeDistanceInWords
       when 'past-week' then @pastWeekQuery()
       else query(@dtstart, @dtend)
 
-  getNow: -> new Date()
-  getTomorrow: -> addDays(@getNow(), 1)
-  getYesterday: -> subDays(@getNow(), 1)
-
   todayQuery: ->
     return isToday(@dtstart) unless @dtend
-    isWithinRange(@getNow(), @dtstart, @dtend)
+    now = new Date()
+    isWithinRange(now, @dtstart, @dtend)
 
   tomorrowQuery: ->
     return isTomorrow(@dtstart) unless @dtend
-    isWithinRange(@getTomorrow(), @dtstart, @dtend)
+    tomorrow = addDays(new Date(), 1)
+    isWithinRange(tomorrow, @dtstart, @dtend)
 
   yesterdayQuery: ->
     return isYesterday(@dtstart) unless @dtend
-    isWithinRange(@getYesterday(), @dtstart, @dtend)
+    yesterday = subDays(new Date(), 1)
+    isWithinRange(yesterday, @dtstart, @dtend)
 
   thisWeekQuery: ->
     return isThisWeek(@dtstart) unless @dtend
+    now = new Date()
     areRangesOverlapping(
-      startOfWeek(@getNow()), endOfWeek(@getNow()),
+      startOfWeek(now), endOfWeek(now),
       @dtstart, @dtend
     )
 
   nextWeekQuery: ->
-    startOfNextWeek = addDays(endOfWeek(@getNow()), 1)
+    now = new Date()
+    startOfNextWeek = addDays(endOfWeek(now), 1)
     endOfNextWeek = endOfWeek(startOfNextWeek)
     return isWithinRange(@dtstart, startOfNextWeek, endOfNextWeek) unless @dtend
     areRangesOverlapping(
@@ -77,7 +78,8 @@ export default class DatetimeDistanceInWords
     )
 
   pastWeekQuery: ->
-    endOfPastWeek = subDays(startOfWeek(@getNow()), 1)
+    now = new Date()
+    endOfPastWeek = subDays(startOfWeek(now), 1)
     startOfPastWeek = startOfWeek(endOfPastWeek)
     return isWithinRange(@dtstart, startOfPastWeek, endOfPastWeek) unless @dtend
     areRangesOverlapping(
