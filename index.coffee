@@ -1,13 +1,35 @@
+import isToday from 'date-fns/is_today'
+import isWithinRange from 'date-fns/is_within_range'
+
 export default class DatetimeDistanceInWords
-  constructor: (datetime, options) ->
-    @datetime = datetime
+  constructor: (dtstart, dtend, options) ->
+    @dtstart = dtstart
+    @dtend = dtend
     @options = options
 
   value: ->
-    for name, options of @options
-      if options.query(@datetime)
-        return options.label
-        break
+    for name, {query, label} of @options
+      return label; break if processQuery(query)
+
+  processQuery: (query) ->
+    switch query
+      when 'today' then todayQuery()
+      else query(@dtstart)
+
+  todayQuery: ->
+    return isToday(@dtstart) unless @dtend
+    isWithinRange(new Date(), @dtstart, @dtend)
+
+
+
+
+
+
+
+
+
+
+
 
 
 # extracted from MCA
