@@ -11,17 +11,19 @@ yarn
 ## How to use
 
 Pass `dtstart` and `dtend` (`dtend` can be set to `undefined`) and queries to check the dates against.
-The queries can be either one of the predefined (see below) or a custom function that accepts `dtstart` and `dtend` and returns `true` or `false`.
+The queries can be either one of the predefined (see below) or a custom function that accepts `dtstart` and `dtend` and returns a value (typically string) if truthy.
+The `.value()` method will return name of the first matching query or value of the custom function.
 
 ```coffee
 import { isWednesday, isWithinRange, setDay } from 'date-fns'
 
 queries = [
-  { query: 'today', label: 'TODAY' },
-  { query: 'tomorrow', label: 'TOMORROW' }
-  { query: ((dtstart, dtend) -> if dtend then isWithinRange(setDay(new Date(), 3), dtstart, dtend) else isWednesday(dtstart)), label: 'WEDNESDAY' }
+  'today',
+  'tomorrow',
+  ((dtstart, dtend) -> if dtend then isWithinRange(setDay(new Date(), 3), dtstart, dtend) else isWednesday(dtstart))
 ]
-new DatetimeDistanceInWords(dtstart, dtend, queries)
+
+new DatetimeDistanceInWords(dtstart, dtend, queries).value()
 ```
 
 ## Available queries

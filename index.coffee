@@ -16,9 +16,9 @@ export default class DatetimeDistanceInWords
     @queries = queries
 
   value: ->
-    for { query, label } in @queries
-      if @processQuery(query)
-        return label
+    for query in @queries
+      if result = @processQuery(query)
+        return if typeof query is 'function' then result else query
         break
 
   processQuery: (query) ->
@@ -38,7 +38,8 @@ export default class DatetimeDistanceInWords
       when 'next' then @nextQuery()
       when 'past' then @pastQuery()
       when 'nearest-weekend' then @nearestWeekendQuery()
-      else query(@dtstart, @dtend)
+      else
+        query(@dtstart, @dtend) if typeof query is 'function'
 
   todayQuery: ->
     return isToday(@dtstart) unless @dtend
