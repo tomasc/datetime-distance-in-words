@@ -9,14 +9,14 @@ import isThisWeek from 'date-fns/is_this_week'
 import startOfWeek from 'date-fns/start_of_week'
 import endOfWeek from 'date-fns/end_of_week'
 
+import isThisMonth from 'date-fns/is_this_month'
+import startOfMonth from 'date-fns/start_of_month'
+import endOfMonth from 'date-fns/end_of_month'
+
 import areRangesOverlapping from 'date-fns/are_ranges_overlapping'
 import isWithinRange from 'date-fns/is_within_range'
 
 # nearest_weekend
-
-# this_month
-# next_month
-# past_month
 
 # this_year
 # next_year
@@ -42,6 +42,9 @@ export default class DatetimeDistanceInWords
       when 'this-week' then @thisWeekQuery()
       when 'next-week' then @nextWeekQuery()
       when 'past-week' then @pastWeekQuery()
+      when 'this-month' then @thisMonthQuery()
+      when 'next-month' then @nextMonthQuery()
+      when 'past-month' then @pastMonthQuery()
       else query(@dtstart, @dtend)
 
   todayQuery: ->
@@ -84,5 +87,33 @@ export default class DatetimeDistanceInWords
     return isWithinRange(@dtstart, startOfPastWeek, endOfPastWeek) unless @dtend
     areRangesOverlapping(
       startOfPastWeek, endOfPastWeek,
+      @dtstart, @dtend
+    )
+
+  thisMonthQuery: ->
+    return isThisMonth(@dtstart) unless @dtend
+    now = new Date()
+    areRangesOverlapping(
+      startOfMonth(now), endOfMonth(now),
+      @dtstart, @dtend
+    )
+
+  nextMonthQuery: ->
+    now = new Date()
+    startOfNextMonth = addDays(endOfMonth(now), 1)
+    endOfNextMonth = endOfMonth(startOfNextMonth)
+    return isWithinRange(@dtstart, startOfNextMonth, endOfNextMonth) unless @dtend
+    areRangesOverlapping(
+      startOfNextMonth, endOfNextMonth,
+      @dtstart, @dtend
+    )
+
+  pastMonthQuery: ->
+    now = new Date()
+    endOfPastMonth = subDays(startOfMonth(now), 1)
+    startOfPastMonth = startOfMonth(endOfPastMonth)
+    return isWithinRange(@dtstart, startOfPastMonth, endOfPastMonth) unless @dtend
+    areRangesOverlapping(
+      startOfPastMonth, endOfPastMonth,
       @dtstart, @dtend
     )

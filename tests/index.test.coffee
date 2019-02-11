@@ -46,3 +46,18 @@ describe 'past week', ->
   query = { query: 'past-week', label: 'PAST WEEK' }
   it 'single', -> expectValue(subDays(NOW, 7), null, [query]).toEqual query.label
   it 'range', -> expectValue(subDays(NOW, 10), subDays(NOW, 7), [query]).toEqual query.label
+
+describe 'this month', ->
+  query = { query: 'this-month', label: 'THIS MONTH' }
+  it 'single', -> expectValue(NOW, null, [query]).toEqual query.label
+  it 'range', -> expectValue(subDays(NOW, 30), addDays(NOW, 30), [query]).toEqual query.label
+
+describe 'next month', ->
+  query = { query: 'next-month', label: 'NEXT MONTH' }
+  it 'single', -> expectValue(addDays(NOW, 40), null, [query]).toEqual query.label
+  it 'range', -> expectValue(addDays(NOW, 40), addDays(NOW, 60), [query]).toEqual query.label
+
+describe 'past month', ->
+  query = { query: 'past-month', label: 'PAST MONTH' }
+  it 'single', -> expectValue(subDays(NOW, 40), null, [query]).toEqual query.label
+  it 'range', -> expectValue(subDays(NOW, 60), subDays(NOW, 40), [query]).toEqual query.label
