@@ -114,3 +114,15 @@ describe 'nearest_weekend', ->
   query = 'nearest-weekend'
   it 'single', -> expectValue(setDay(NOW, 6), null, [query]).toEqual query
   it 'range', -> expectValue(NOW, addDays(NOW, 14), [query]).toEqual query
+
+# ---------------------------------------------------------------------
+
+describe 'precedence test', ->
+  queries = [
+    'this-year',
+    'this-month',
+    'this-week',
+    'today'
+  ]
+  it 'returns the first matching', -> expectValue(NOW, null, queries).toEqual 'this-year'
+  it 'returns the first matching', -> expectValue(NOW, null, queries.reverse()).toEqual 'today'
