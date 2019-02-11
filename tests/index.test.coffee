@@ -6,6 +6,8 @@ import {
   addWeeks, subWeeks,
   addMonths, subMonths,
   addYears, subYears,
+  endOfWeek,
+  setDay
 } from 'date-fns'
 
 expectValue = (dtstart, dtend, queries) ->
@@ -104,3 +106,10 @@ describe 'past', ->
   query = { query: 'past', label: 'PAST' }
   it 'single', -> expectValue(subDays(NOW, 1), null, [query]).toEqual query.label
   it 'range', -> expectValue(subDays(NOW, 10), subDays(NOW, 1), [query]).toEqual query.label
+
+# ---------------------------------------------------------------------
+
+describe 'nearest_weekend', ->
+  query = { query: 'nearest-weekend', label: 'NEAREST WEEKEND' }
+  it 'single', -> expectValue(setDay(NOW, 6), null, [query]).toEqual query.label
+  it 'range', -> expectValue(NOW, addDays(NOW, 14), [query]).toEqual query.label

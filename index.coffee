@@ -5,10 +5,9 @@ import {
   isThisMonth, startOfMonth, endOfMonth,
   isThisYear, startOfYear, endOfYear,
   areRangesOverlapping, isWithinRange,
-  isFuture, isPast
+  isFuture, isPast, isWeekend, isSaturday,
+  compareAsc, getDay, setDay
 } from 'date-fns'
-
-# nearest_weekend
 
 export default class DatetimeDistanceInWords
   constructor: (dtstart, dtend, queries) ->
@@ -38,6 +37,7 @@ export default class DatetimeDistanceInWords
       when 'past-year' then @pastYearQuery()
       when 'next' then @nextQuery()
       when 'past' then @pastQuery()
+      when 'nearest-weekend' then @nearestWeekendQuery()
       else query(@dtstart, @dtend)
 
   todayQuery: ->
@@ -140,8 +140,19 @@ export default class DatetimeDistanceInWords
     )
 
   nextQuery: ->
-    isFuture(startOfDay(@dtstart))
+    return isFuture(startOfDay(@dtstart))
 
   pastQuery: ->
-    isPast(endOfDay(@dtstart)) unless @dtend
+    return isPast(endOfDay(@dtstart)) unless @dtend
     isPast(endOfDay(@dtend))
+
+  nearestWeekendQuery: ->
+    now = new Date()
+    day = getDay(now)
+    startOfNearestWeekend = startOfDay(if day in [6, 0] then now else setDay(now, 6))
+    endOfNearestWeekend = endOfDay(addDays(startOfNearestWeekend, 1))
+    return isWithinRange(@dtstart, startOfNearestWeekend, endOfNearestWeekend) unless @dtend
+    areRangesOverlapping(
+      startOfNearestWeekend, endOfNearestWeekend,
+      @dtstart, @dtend
+    )
