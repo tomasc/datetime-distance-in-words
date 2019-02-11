@@ -1,24 +1,42 @@
+import addDays from 'date-fns/add_days'
+import subDays from 'date-fns/add_days'
+
 import isToday from 'date-fns/is_today'
+import isTomorrow from 'date-fns/is_tomorrow'
+import isYesterday from 'date-fns/is_yesterday'
+
 import isWithinRange from 'date-fns/is_within_range'
 
 export default class DatetimeDistanceInWords
-  constructor: (dtstart, dtend, options) ->
+  constructor: (dtstart, dtend, queries) ->
     @dtstart = dtstart
     @dtend = dtend
-    @options = options
+    @queries = queries
 
   value: ->
-    for name, {query, label} of @options
-      return label; break if processQuery(query)
+    for { query, label } in @queries
+      if @processQuery(query)
+        return label
+        break
 
   processQuery: (query) ->
     switch query
-      when 'today' then todayQuery()
-      else query(@dtstart)
+      when 'today' then @todayQuery()
+      when 'tomorrow' then @tomorrowQuery()
+      when 'yesterday' then @yesterdayQuery()
+      else query(@dtstart, @dtend)
 
   todayQuery: ->
     return isToday(@dtstart) unless @dtend
     isWithinRange(new Date(), @dtstart, @dtend)
+
+  tomorrowQuery: ->
+    return isTomorrow(@dtstart) unless @dtend
+    isWithinRange(addDays(new Date(), 1), @dtstart, @dtend)
+
+  yesterdayQuery: ->
+    return isYesterday(@dtstart) unless @dtend
+    isWithinRange(subDays(new Date(), 1), @dtstart, @dtend)
 
 
 
