@@ -1,26 +1,14 @@
-import addDays from 'date-fns/add_days'
-import subDays from 'date-fns/sub_days'
-
-import isToday from 'date-fns/is_today'
-import isTomorrow from 'date-fns/is_tomorrow'
-import isYesterday from 'date-fns/is_yesterday'
-
-import isThisWeek from 'date-fns/is_this_week'
-import startOfWeek from 'date-fns/start_of_week'
-import endOfWeek from 'date-fns/end_of_week'
-
-import isThisMonth from 'date-fns/is_this_month'
-import startOfMonth from 'date-fns/start_of_month'
-import endOfMonth from 'date-fns/end_of_month'
-
-import isThisYear from 'date-fns/is_this_year'
-import startOfYear from 'date-fns/start_of_year'
-import endOfYear from 'date-fns/end_of_year'
-
-import areRangesOverlapping from 'date-fns/are_ranges_overlapping'
-import isWithinRange from 'date-fns/is_within_range'
+import {
+  addDays, subDays,
+  isToday, isTomorrow, isYesterday,
+  isThisWeek, startOfWeek, endOfWeek,
+  isThisMonth, startOfMonth, endOfMonth,
+  isThisYear, startOfYear, endOfYear,
+  areRangesOverlapping, isWithinRange
+} from 'date-fns'
 
 # nearest_weekend
+# now, next, past
 
 export default class DatetimeDistanceInWords
   constructor: (dtstart, dtend, queries) ->

@@ -1,18 +1,12 @@
 import DatetimeDistanceInWords from '../'
 
-import isToday from 'date-fns/is_today'
-
-import addDays from 'date-fns/add_days'
-import subDays from 'date-fns/sub_days'
-
-import addWeeks from 'date-fns/add_weeks'
-import subWeeks from 'date-fns/sub_weeks'
-
-import addMonths from 'date-fns/add_months'
-import subMonths from 'date-fns/sub_months'
-
-import addYears from 'date-fns/add_years'
-import subYears from 'date-fns/sub_years'
+import {
+  isToday,
+  addDays, subDays,
+  addWeeks, subWeeks,
+  addMonths, subMonths,
+  addYears, subYears,
+} from 'date-fns'
 
 expectValue = (dtstart, dtend, queries) ->
   instance = new DatetimeDistanceInWords(dtstart, dtend, queries)
