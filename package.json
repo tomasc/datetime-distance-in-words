@@ -9,11 +9,12 @@
     "testEnvironment": "node"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --watch",
     "build": "coffee -c index.coffee"
   },
   "devDependencies": {
     "coffeescript": "^2.3.2",
+    "date-fns": "^1.30.1",
     "jest": "^23.6.0",
     "jest-preset-coffeescript": "^1.0.0"
   }

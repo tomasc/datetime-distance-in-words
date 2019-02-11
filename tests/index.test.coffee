@@ -1,14 +1,12 @@
 import DatetimeDistanceInWords from '../'
 
-it 'works', ->
-  instance = new DatetimeDistanceInWords()
-  expect(instance.works()).toEqual "YES!"
+import isToday from 'date-fns/is_today'
 
 it 'today', ->
-  today = new Date()
+  label = 'TODAY'
   options = {
-    today: { query: '???', label: 'TODAY' }
+    today: { query: ((dt) -> isToday(dt)), label: label }
   }
-  instance = new DatetimeDistanceInWords(today, options)
+  instance = new DatetimeDistanceInWords(new Date(), options)
   value = instance.value()
-  expect(value).toEqual "TODAY"
+  expect(value).toEqual label

@@ -1,19 +1,13 @@
-# options = {
-#   today: { query: ???, label: "TODAY" },
-#   tomorrow: { query: ???, label: "TOMORROW" }
-# }
-
-# input is datetime
-# output is string value based on queries and labels provided via options
-
 export default class DatetimeDistanceInWords
   constructor: (datetime, options) ->
     @datetime = datetime
     @options = options
 
-  works: -> "YES!"
-
   value: ->
+    for name, options of @options
+      if options.query(@datetime)
+        return options.label
+        break
 
 
 # extracted from MCA
