@@ -21,11 +21,21 @@ The queries can be either one of the predefined (see below) or a custom function
 The `dateQueries` function returns name of the first matching query (for example `tomorrow`) or value of the custom function. Queries are evaluated in order as specified.
 
 ```coffee
-import { isWednesday, isWithinRange, setDay } from 'date-fns'
-
 queries = [
   'today',
   'tomorrow',
+  'this-week'
+]
+
+dateQueries(dtstart, dtend, queries)
+```
+
+With custom function:
+
+```coffee
+import { isWednesday, isWithinRange, setDay } from 'date-fns'
+
+queries = [
   ((dtstart, dtend) -> if dtend then isWithinRange(setDay(new Date(), 3), dtstart, dtend) else isWednesday(dtstart))
 ]
 
