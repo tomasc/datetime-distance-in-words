@@ -1,4 +1,4 @@
-import dateQueries from '../index.coffee'
+import dateQueries from '../src/index.coffee'
 
 import {
   isToday,
