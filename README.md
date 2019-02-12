@@ -6,10 +6,10 @@ JS function to check date or date range against common queries or custom functio
 
 ## Getting Started
 
-Install node packages:
+Install:
 
 ```
-yarn
+yarn add date-queries
 ```
 
 ## How to use
@@ -48,9 +48,25 @@ dateQueries(dtstart, dtend, queries)
 * `past`
 * `nearest-weekend`
 
-## Running the tests
+## Development
+
+Running the tests:
 
 ```
 yarn test
 yarn watch
 ```
+
+## Building
+
+```
+yarn build
+```
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at <https://github.com/tomasc/date-queries>.
+
+## License
+
+The library is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
