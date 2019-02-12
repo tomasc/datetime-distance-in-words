@@ -1,5 +1,7 @@
 # DatetimeDistanceInWords
 
+[![Build Status](https://travis-ci.org/tomasc/datetime-distance-in-words.svg)](https://travis-ci.org/tomasc/datetime-distance-in-words)
+
 ## Getting Started
 
 Install node packages:
