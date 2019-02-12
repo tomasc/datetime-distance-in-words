@@ -36,7 +36,12 @@ With custom function:
 import { isWednesday, isWithinRange, setDay } from 'date-fns'
 
 queries = [
-  ((dtstart, dtend) -> if dtend then isWithinRange(setDay(new Date(), 3), dtstart, dtend) else isWednesday(dtstart))
+  ((dtstart, dtend) ->
+    if dtend
+      isWithinRange(setDay(new Date(), 3), dtstart, dtend)
+    else
+      isWednesday(dtstart)
+  )
 ]
 
 dateQueries(dtstart, dtend, queries)
