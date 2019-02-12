@@ -38,6 +38,7 @@ import { isWednesday, isWithinRange, setDay } from 'date-fns'
 queries = [
   ((dtstart, dtend) ->
     if dtend
+      # does the range cover coming Wednesday?
       isWithinRange(setDay(new Date(), 3), dtstart, dtend)
     else
       isWednesday(dtstart)
