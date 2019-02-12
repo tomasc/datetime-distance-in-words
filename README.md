@@ -15,8 +15,10 @@ yarn add date-queries
 ## How to use
 
 Pass `dtstart` and `dtend` (`dtend` can be set to `undefined`) and queries to check the dates against.
+
 The queries can be either one of the predefined (see below) or a custom function that accepts `dtstart` and `dtend` and returns a value (typically string) if truthy.
-The functionreturns name of the first matching query or value of the custom function.
+
+The `dateQueries` function returns name of the first matching query (for example `tomorrow`) or value of the custom function. Queries are evaluated in order as specified.
 
 ```coffee
 import { isWednesday, isWithinRange, setDay } from 'date-fns'
