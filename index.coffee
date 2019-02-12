@@ -9,7 +9,10 @@ import {
   compareAsc, getDay, setDay
 } from 'date-fns'
 
-export default class DatetimeDistanceInWords
+export default datetimeDistanceInWords = (dtstart, dtend, queries) ->
+  new DatetimeDistanceInWords(dtstart, dtend, queries).value()
+
+class DatetimeDistanceInWords
   constructor: (dtstart, dtend, queries) ->
     @dtstart = dtstart
     @dtend = dtend

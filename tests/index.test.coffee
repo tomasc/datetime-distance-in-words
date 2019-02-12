@@ -1,4 +1,4 @@
-import DatetimeDistanceInWords from './..'
+import datetimeDistanceInWords from '../index.coffee'
 
 import {
   isToday,
@@ -11,8 +11,7 @@ import {
 } from 'date-fns'
 
 expectValue = (dtstart, dtend, queries) ->
-  instance = new DatetimeDistanceInWords(dtstart, dtend, queries)
-  expect(instance.value())
+  expect(datetimeDistanceInWords(dtstart, dtend, queries))
 
 NOW = new Date()
 TOMORROW = addDays(NOW, 1)

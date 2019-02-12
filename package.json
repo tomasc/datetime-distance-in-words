@@ -1,7 +1,7 @@
 {
   "name": "datetime-distance-in-words",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "author": "Tomáš Celizna <tomas.celizna@gmail.com>",
   "license": "MIT",
   "jest": {
@@ -11,7 +11,7 @@
   "scripts": {
     "test": "jest",
     "watch": "jest --watch",
-    "build": "coffee -c index.coffee"
+    "build": "coffee --output dist --compile index.coffee"
   },
   "devDependencies": {
     "coffeescript": "^2.3.2",

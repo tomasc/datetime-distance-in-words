@@ -12,7 +12,7 @@ yarn
 
 Pass `dtstart` and `dtend` (`dtend` can be set to `undefined`) and queries to check the dates against.
 The queries can be either one of the predefined (see below) or a custom function that accepts `dtstart` and `dtend` and returns a value (typically string) if truthy.
-The `.value()` method will return name of the first matching query or value of the custom function.
+The functionreturns name of the first matching query or value of the custom function.
 
 ```coffee
 import { isWednesday, isWithinRange, setDay } from 'date-fns'
@@ -23,7 +23,7 @@ queries = [
   ((dtstart, dtend) -> if dtend then isWithinRange(setDay(new Date(), 3), dtstart, dtend) else isWednesday(dtstart))
 ]
 
-new DatetimeDistanceInWords(dtstart, dtend, queries).value()
+datetimeDistanceInWords(dtstart, dtend, queries)
 ```
 
 ## Available queries
