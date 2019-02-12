@@ -72,7 +72,7 @@ Running the tests:
 
 ```
 yarn test
-yarn watch
+yarn test --watch
 ```
 
 ## Building
