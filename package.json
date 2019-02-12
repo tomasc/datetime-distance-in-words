@@ -1,5 +1,6 @@
 {
-  "name": "datetime-distance-in-words",
+  "name": "date-queries",
+  "description": "JS function to check date or date range against common queries or custom functions.",
   "version": "1.0.0",
   "main": "dist/index.js",
   "author": "Tomáš Celizna <tomas.celizna@gmail.com>",

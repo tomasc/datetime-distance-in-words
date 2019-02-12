@@ -1,6 +1,8 @@
-# DatetimeDistanceInWords
+# Date Queries
 
-[![Build Status](https://travis-ci.org/tomasc/datetime-distance-in-words.svg)](https://travis-ci.org/tomasc/datetime-distance-in-words)
+[![Build Status](https://travis-ci.org/tomasc/date-queries.svg)](https://travis-ci.org/tomasc/date-queries)
+
+JS function to check date or date range against common queries or custom functions.
 
 ## Getting Started
 
@@ -25,7 +27,7 @@ queries = [
   ((dtstart, dtend) -> if dtend then isWithinRange(setDay(new Date(), 3), dtstart, dtend) else isWednesday(dtstart))
 ]
 
-datetimeDistanceInWords(dtstart, dtend, queries)
+dateQueries(dtstart, dtend, queries)
 ```
 
 ## Available queries
