@@ -167,7 +167,7 @@ class dateQueries
   nearestWeekendQuery: ->
     now = new Date()
     day = getDay(now)
-    startOfNearestWeekend = startOfDay(if day in [6, 0] then now else setDay(now, 6))
+    startOfNearestWeekend = startOfDay(if day in [6, 0] then startOfDay(now) else startOfDay(setDay(now, 6)))
     endOfNearestWeekend = endOfDay(addDays(startOfNearestWeekend, 1))
     return isWithinRange(@dtstart, startOfNearestWeekend, endOfNearestWeekend) unless @dtend
     areRangesOverlapping(

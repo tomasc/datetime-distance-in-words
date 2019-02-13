@@ -7,7 +7,7 @@ import {
   addMonths, subMonths,
   addYears, subYears,
   endOfWeek,
-  setDay
+  setDay, getDay
 } from 'date-fns'
 
 expectValue = (dtstart, dtend, queries) ->
