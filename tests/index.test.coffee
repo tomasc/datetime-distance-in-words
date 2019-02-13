@@ -28,6 +28,7 @@ describe 'today', ->
   query = 'today'
   it 'single', -> expectValue(NOW, null, [query]).toEqual query
   it 'range', -> expectValue(subDays(NOW, 3), addDays(NOW, 3), [query]).toEqual query
+  it 'range (from == to)', -> expectValue(NOW, NOW, [query]).toEqual query
 
 describe 'tomorrow', ->
   query = 'tomorrow'

@@ -15,7 +15,11 @@ export default dateQueries = (dtstart, dtend, queries) ->
 class dateQueries
   constructor: (dtstart, dtend, queries) ->
     @dtstart = dtstart
+    @dtstartStartOfDay = startOfDay(dtstart)
+
     @dtend = dtend
+    @dtendStartOfDay = endOfDay(dtend)
+
     @queries = queries
 
   value: ->
@@ -46,17 +50,17 @@ class dateQueries
   todayQuery: ->
     return isToday(@dtstart) unless @dtend
     now = new Date()
-    isWithinRange(now, @dtstart, @dtend)
+    isWithinRange(now, @dtstartStartOfDay, @dtendStartOfDay)
 
   tomorrowQuery: ->
     return isTomorrow(@dtstart) unless @dtend
     tomorrow = addDays(new Date(), 1)
-    isWithinRange(tomorrow, @dtstart, @dtend)
+    isWithinRange(tomorrow, @dtstartStartOfDay, @dtendStartOfDay)
 
   yesterdayQuery: ->
     return isYesterday(@dtstart) unless @dtend
     yesterday = subDays(new Date(), 1)
-    isWithinRange(yesterday, @dtstart, @dtend)
+    isWithinRange(yesterday, @dtstartStartOfDay, @dtendStartOfDay)
 
   thisWeekQuery: ->
     return isThisWeek(@dtstart) unless @dtend
