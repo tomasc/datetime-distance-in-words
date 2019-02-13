@@ -27,7 +27,9 @@ queries = [
   'this-week'
 ]
 
-dateQueries(dtstart, dtend, queries)
+# dateQueries(dtstart, dtend, queries)
+
+dateQueries(new Date(), null, queries) # => 'today'
 ```
 
 With custom function:
