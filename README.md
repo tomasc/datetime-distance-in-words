@@ -65,6 +65,7 @@ dateQueries(dtstart, dtend, queries)
 * `next`
 * `past`
 * `nearest-weekend`
+* `rest-of-this-week`
 
 ## Development
 

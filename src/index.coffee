@@ -1,12 +1,14 @@
 import {
   addDays, subDays,
-  isToday, isTomorrow, isYesterday, startOfDay, endOfDay,
+  isToday, isTomorrow, isYesterday,
+  startOfDay, endOfDay,
   isThisWeek, startOfWeek, endOfWeek,
   isThisMonth, startOfMonth, endOfMonth,
   isThisYear, startOfYear, endOfYear,
   areRangesOverlapping, isWithinRange,
   isFuture, isPast, isWeekend, isSaturday,
-  compareAsc, getDay, setDay
+  compareAsc, isAfter, isEqual,
+  getDay, setDay
 } from 'date-fns'
 
 export default dateQueries = (dtstart, dtend, queries) ->
@@ -33,6 +35,7 @@ class dateQueries
       when 'now', 'today' then @todayQuery()
       when 'tomorrow' then @tomorrowQuery()
       when 'yesterday' then @yesterdayQuery()
+      when 'rest-of-this-week' then @restOfThisWeekQuery()
       when 'this-week' then @thisWeekQuery()
       when 'next-week' then @nextWeekQuery()
       when 'past-week' then @pastWeekQuery()
@@ -61,6 +64,14 @@ class dateQueries
     return isYesterday(@dtstart) unless @dtend
     yesterday = subDays(new Date(), 1)
     isWithinRange(yesterday, @dtstartStartOfDay, @dtendStartOfDay)
+
+  restOfThisWeekQuery: ->
+    now = new Date()
+    return ((isEqual(@dtstart, now) || isAfter(@dtstart, startOfDay(now))) && isThisWeek(@dtstart)) unless @dtend
+    areRangesOverlapping(
+      startOfDay(now), endOfWeek(now),
+      @dtstart, @dtend
+    )
 
   thisWeekQuery: ->
     return isThisWeek(@dtstart) unless @dtend
