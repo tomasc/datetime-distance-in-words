@@ -12,9 +12,9 @@ import {
 } from 'date-fns'
 
 export default dateQueries = (dtstart, dtend, queries) ->
-  new dateQueries(dtstart, dtend, queries).value()
+  new DateQueries(dtstart, dtend, queries).value()
 
-class dateQueries
+class DateQueries
   constructor: (dtstart, dtend, queries) ->
     @dtstart = dtstart
     @dtstartStartOfDay = startOfDay(dtstart)
