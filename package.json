@@ -1,7 +1,7 @@
 {
   "name": "date-queries",
   "description": "JS function to check date or date range against common queries or custom functions.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "author": "Tomáš Celizna <mail@tomascelizna.com>",
   "license": "MIT",
