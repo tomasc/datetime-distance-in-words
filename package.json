@@ -28,7 +28,7 @@
     "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.1.0"
   },
-  "peerDependencies": {
+  "dependencies": {
     "date-fns": "^1.30.1"
   }
 }
