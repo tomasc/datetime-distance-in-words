@@ -1,6 +1,6 @@
 # Date Queries
 
-[![Build Status](https://travis-ci.org/tomasc/date-queries.svg)](https://travis-ci.org/tomasc/date-queries)
+[![Build Status](https://travis-ci.org/tomasc/date-queries.svg)](https://travis-ci.org/tomasc/date-queries) [![npm version](https://badge.fury.io/js/date-queries.svg)](https://badge.fury.io/js/date-queries)
 
 JS function to check date or date range against common queries or custom functions.
 
