@@ -2,12 +2,12 @@ import {
   addDays, subDays,
   isToday, isTomorrow, isYesterday,
   startOfDay, endOfDay,
-  isThisWeek, startOfWeek, endOfWeek,
+  isThisWeek, startOfWeek, endOfWeek, lastDayOfWeek,
   isThisMonth, startOfMonth, endOfMonth,
   isThisYear, startOfYear, endOfYear,
   areRangesOverlapping, isWithinRange,
-  isFuture, isPast, isWeekend, isSaturday,
-  compareAsc, isAfter, isEqual,
+  isFuture, isPast,
+  isAfter,
   getDay, setDay
 } from 'date-fns'
 
@@ -35,7 +35,6 @@ class dateQueries
       when 'now', 'today' then @todayQuery()
       when 'tomorrow' then @tomorrowQuery()
       when 'yesterday' then @yesterdayQuery()
-      when 'rest-of-this-week' then @restOfThisWeekQuery()
       when 'this-week' then @thisWeekQuery()
       when 'next-week' then @nextWeekQuery()
       when 'past-week' then @pastWeekQuery()
@@ -48,6 +47,7 @@ class dateQueries
       when 'next' then @nextQuery()
       when 'past' then @pastQuery()
       when 'nearest-weekend' then @nearestWeekendQuery()
+      when 'rest-of-this-week' then @restOfThisWeekQuery()
       else query(@dtstart, @dtend) if typeof query is 'function'
 
   todayQuery: ->
@@ -64,14 +64,6 @@ class dateQueries
     return isYesterday(@dtstart) unless @dtend
     yesterday = subDays(new Date(), 1)
     isWithinRange(yesterday, @dtstartStartOfDay, @dtendStartOfDay)
-
-  restOfThisWeekQuery: ->
-    now = new Date()
-    return ((isEqual(@dtstart, now) || isAfter(@dtstart, startOfDay(now))) && isThisWeek(@dtstart)) unless @dtend
-    areRangesOverlapping(
-      startOfDay(now), endOfWeek(now),
-      @dtstart, @dtend
-    )
 
   thisWeekQuery: ->
     return isThisWeek(@dtstart) unless @dtend
@@ -166,11 +158,18 @@ class dateQueries
 
   nearestWeekendQuery: ->
     now = new Date()
-    day = getDay(now)
-    startOfNearestWeekend = startOfDay(if day in [6, 0] then startOfDay(now) else startOfDay(setDay(now, 6)))
-    endOfNearestWeekend = endOfDay(addDays(startOfNearestWeekend, 1))
+    endOfNearestWeekend = endOfDay(lastDayOfWeek(now, { weekStartsOn: 1 }))
+    startOfNearestWeekend = startOfDay(subDays(endOfNearestWeekend, 1))
     return isWithinRange(@dtstart, startOfNearestWeekend, endOfNearestWeekend) unless @dtend
     areRangesOverlapping(
       startOfNearestWeekend, endOfNearestWeekend,
+      @dtstart, @dtend
+    )
+
+  restOfThisWeekQuery: ->
+    now = new Date()
+    return (isAfter(@dtstart, startOfDay(now)) && isThisWeek(@dtstart)) unless @dtend
+    areRangesOverlapping(
+      startOfDay(now), endOfDay(endOfWeek(now)),
       @dtstart, @dtend
     )

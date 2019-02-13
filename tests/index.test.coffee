@@ -42,13 +42,6 @@ describe 'yesterday', ->
 
 # ---------------------------------------------------------------------
 
-describe 'rest of this week', ->
-  query = 'rest-of-this-week'
-  it 'single', ->
-    expectValue(NOW, null, [query]).toEqual query
-    expectValue(subDays(NOW, 1), null, [query]).not.toEqual query
-  it 'range', -> expectValue(NOW, addDays(NOW, 3), [query]).toEqual query
-
 describe 'this week', ->
   query = 'this-week'
   it 'single', -> expectValue(NOW, null, [query]).toEqual query
@@ -121,6 +114,13 @@ describe 'nearest_weekend', ->
   query = 'nearest-weekend'
   it 'single', -> expectValue(setDay(NOW, 6), null, [query]).toEqual query
   it 'range', -> expectValue(NOW, addDays(NOW, 14), [query]).toEqual query
+
+describe 'rest of this week', ->
+  query = 'rest-of-this-week'
+  it 'single', ->
+    expectValue(NOW, null, [query]).toEqual query
+    expectValue(subDays(NOW, 1), null, [query]).not.toEqual query
+  it 'range', -> expectValue(NOW, addDays(NOW, 3), [query]).toEqual query
 
 # ---------------------------------------------------------------------
 
