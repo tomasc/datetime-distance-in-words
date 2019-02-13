@@ -3,7 +3,7 @@
   "description": "JS function to check date or date range against common queries or custom functions.",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "author": "Tomáš Celizna <tomas.celizna@gmail.com>",
+  "author": "Tomáš Celizna <mail@tomascelizna.com>",
   "license": "MIT",
   "jest": {
     "preset": "jest-preset-coffeescript",
