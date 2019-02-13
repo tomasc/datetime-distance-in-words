@@ -28,7 +28,6 @@ queries = [
 ]
 
 # dateQueries(dtstart, dtend, queries)
-
 dateQueries(new Date(), null, queries) # => 'today'
 ```
 
