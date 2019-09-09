@@ -9,7 +9,7 @@ import {
   isFuture, isPast,
   isAfter,
   getDay, setDay,
-  eachDayOfInterval
+  eachDay
 } from 'date-fns'
 
 export default dateQueries = (dtstart, dtend, queries) ->
@@ -169,7 +169,8 @@ class DateQueries
     )
 
   weekendQuery: ->
-    for date in eachDayOfInterval(@dtstart, @dtend)
+    return isWeekend(@dtstart) unless @dtend
+    for date in eachDay(@dtstart, @dtend)
       return true if isWeekend(date)
 
   restOfThisWeekQuery: ->

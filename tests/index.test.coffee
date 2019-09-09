@@ -72,7 +72,7 @@ describe 'next month', ->
 describe 'past month', ->
   query = 'past-month'
   it 'single', -> expectValue(subMonths(NOW, 1), null, [query]).toEqual query
-  it 'range', -> expectValue(subDays(NOW, 60), subDays(NOW, 40), [query]).toEqual query
+  it 'range', -> expectValue(subDays(NOW, 60), subDays(NOW, 10), [query]).toEqual query
 
 # ---------------------------------------------------------------------
 
@@ -114,6 +114,11 @@ describe 'nearest_weekend', ->
   query = 'nearest-weekend'
   it 'single', -> expectValue(setDay(NOW, 6), null, [query]).toEqual query
   it 'range', -> expectValue(NOW, addDays(NOW, 14), [query]).toEqual query
+
+describe 'weekend', ->
+  query = 'weekend'
+  it 'single', -> expectValue(setDay(NOW, 6), null, [query]).toEqual query
+  it 'range', -> expectValue(setDay(NOW, 5), setDay(NOW, 7), [query]).toEqual query
 
 describe 'rest of this week', ->
   query = 'rest-of-this-week'
