@@ -1,6 +1,6 @@
 import {
   addDays, subDays,
-  isToday, isTomorrow, isYesterday,
+  isToday, isTomorrow, isYesterday, isWeekend,
   startOfDay, endOfDay,
   isThisWeek, startOfWeek, endOfWeek, lastDayOfWeek,
   isThisMonth, startOfMonth, endOfMonth,
@@ -8,7 +8,8 @@ import {
   areRangesOverlapping, isWithinRange,
   isFuture, isPast,
   isAfter,
-  getDay, setDay
+  getDay, setDay,
+  eachDayOfInterval
 } from 'date-fns'
 
 export default dateQueries = (dtstart, dtend, queries) ->
@@ -47,6 +48,7 @@ class DateQueries
       when 'next' then @nextQuery()
       when 'past' then @pastQuery()
       when 'nearest-weekend' then @nearestWeekendQuery()
+      when 'weekend' then @weekendQuery()
       when 'rest-of-this-week' then @restOfThisWeekQuery()
       else query(@dtstart, @dtend) if typeof query is 'function'
 
@@ -165,6 +167,10 @@ class DateQueries
       startOfNearestWeekend, endOfNearestWeekend,
       @dtstart, @dtend
     )
+
+  weekendQuery: ->
+    for date in eachDayOfInterval(@dtstart, @dtend)
+      return true if isWeekend(date)
 
   restOfThisWeekQuery: ->
     now = new Date()
